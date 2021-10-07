@@ -17,7 +17,6 @@ public enum MethodEnums {
         @Override
         public String getValue(final String result) throws ValueNotFoundException {
             try{
-                System.out.println(result);
                 final JsonNode node = new ObjectMapper().readTree(result);
                 return node.get("result").get("state_root_hash").textValue();
             } catch (Exception e){
@@ -104,7 +103,6 @@ public enum MethodEnums {
         @Override
         public String getValue(final String result) throws ValueNotFoundException {
             try{
-                System.out.println(result);
                 final JsonNode node = new ObjectMapper().readTree(result);
                 return node.get("result").toPrettyString();
             } catch (Exception e){
@@ -115,7 +113,6 @@ public enum MethodEnums {
         @Override
         public String getValue(final String result) throws ValueNotFoundException {
             try{
-                System.out.println(result);
                 final JsonNode node = new ObjectMapper().readTree(result);
                 return node.get("result").toPrettyString();
             } catch (Exception e){
@@ -126,7 +123,6 @@ public enum MethodEnums {
         @Override
         public String getValue(final String result) throws ValueNotFoundException {
             try {
-                System.out.println(result);
                 final JsonNode node = new ObjectMapper().readTree(result);
                 return node.get("result").toPrettyString();
             } catch (Exception e) {
