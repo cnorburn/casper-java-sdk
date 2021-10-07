@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import com.casper.sdk.service.QueryService;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -136,6 +137,78 @@ public class TestQueryService {
 
     }
 
+    @Test
+    public void testGetBlock() throws Throwable {
+
+        Properties.properties.put("node-url", url);
+        Properties.properties.put("node-port", String.valueOf(mockBackEnd.getPort()));
+
+        mockBackEnd.setDispatcher(
+                new MethodDispatcher());
+
+        String block = query.getBlock();
+        assertNotNull(block);
+
+    }
+
+    @Test
+    public void testGetBlockTransfers() throws Throwable {
+
+        Properties.properties.put("node-url", url);
+        Properties.properties.put("node-port", String.valueOf(mockBackEnd.getPort()));
+
+        mockBackEnd.setDispatcher(
+                new MethodDispatcher());
+
+        String blockTransfers = query.getBlockTransfers();
+        assertNotNull(blockTransfers);
+
+    }
+
+    @Test
+    public void testGetEraInfoBySwitchBlock() throws Throwable {
+
+        Properties.properties.put("node-url", url);
+        Properties.properties.put("node-port", String.valueOf(mockBackEnd.getPort()));
+
+        mockBackEnd.setDispatcher(
+                new MethodDispatcher());
+
+        String eraInfoBySwitchBlock = query.getEraInfoBySwitchBlock();
+        assertNotNull(eraInfoBySwitchBlock);
+
+    }
+
+    @Test
+    public void testGetDeployInfo() throws Throwable {
+
+        Properties.properties.put("node-url", url);
+        Properties.properties.put("node-port", String.valueOf(mockBackEnd.getPort()));
+
+        String deployHash = "6c4048f8ebd40a160e9df47e73680eda8ae8430309a9566655bb357a5967276b";
+
+        mockBackEnd.setDispatcher(
+                new MethodDispatcher());
+
+        String deployInfo = query.getDeployInfo(deployHash);
+        assertNotNull(deployInfo);
+
+    }
+
+    @Test
+    public void testGetRpcSchema() throws Throwable {
+
+        Properties.properties.put("node-url", url);
+        Properties.properties.put("node-port", String.valueOf(mockBackEnd.getPort()));
+
+        mockBackEnd.setDispatcher(
+                new MethodDispatcher());
+
+        String rpcSchema = query.getRpcSchema();
+        assertNotNull(rpcSchema);
+
+    }
+
 
     private static final class MethodDispatcher extends Dispatcher{
 
@@ -159,6 +232,16 @@ public class TestQueryService {
                 responseBodyFile = "method-json/info_get_peers.json";
             } else if  (request.getBody().toString().contains("info_get_status")){
                 responseBodyFile = "method-json/info_get_status.json";
+            } else if  (request.getBody().toString().contains("chain_get_block")){
+                responseBodyFile = "method-json/chain_get_block.json";
+            } else if  (request.getBody().toString().contains("chain_get_block_transfers")){
+                responseBodyFile = "method-json/chain_get_block_transfers.json";
+            } else if  (request.getBody().toString().contains("chain_get_era_info_by_switch_b")){
+                responseBodyFile = "method-json/chain_get_era_info_by_switch_block.json";
+            } else if  (request.getBody().toString().contains("info_get_deploy")){
+                responseBodyFile = "method-json/info_get_deploy.json";
+            } else if  (request.getBody().toString().contains("rpc.discover")){
+                responseBodyFile = "method-json/rpc_discover.json";
             }
 
             return new MockResponse().setResponseCode(200)

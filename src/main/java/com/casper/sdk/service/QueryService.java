@@ -1,13 +1,13 @@
 package com.casper.sdk.service;
 
-import static com.casper.sdk.Properties.*;
-
 import com.casper.sdk.service.http.rpc.HttpMethods;
 import com.casper.sdk.service.http.rpc.Method;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Optional;
+
+import static com.casper.sdk.Properties.*;
 
 /**
  * Service to query the chain
@@ -62,7 +62,8 @@ public class QueryService {
     public String getAccountMainPurseURef(final String accountKey) throws Throwable {
 
         final Optional<String> result = httpMethods.rpcCallMethod(new Method(STATE_GET_ITEM,
-                new HashMap<>() {            {
+                new HashMap<>() {
+                    {
                         put("state_root_hash", getStateRootHash());
                         put("key", "account-hash-" + HashService.getAccountHash(accountKey));
                         put("path", Collections.emptyList());
@@ -104,5 +105,57 @@ public class QueryService {
 
     }
 
+    public String getBlock() throws Throwable {
 
+        final Optional<String> result = httpMethods.rpcCallMethod(new Method(CHAIN_GET_BLOCK,
+                new HashMap<>()));
+
+        return (result.isEmpty()) ? null
+                : MethodEnums.CHAIN_GET_BLOCK.getValue(result.get());
+
+    }
+
+    public String getBlockTransfers() throws Throwable {
+
+        final Optional<String> result = httpMethods.rpcCallMethod(new Method(CHAIN_GET_BLOCK_TRANSFERS,
+                new HashMap<>()));
+
+        return (result.isEmpty()) ? null
+                : MethodEnums.CHAIN_GET_BLOCK_TRANSFERS.getValue(result.get());
+
+    }
+
+    public String getDeployInfo(String deployHash) throws Throwable {
+
+        final Optional<String> result = httpMethods.rpcCallMethod(new Method(INFO_GET_DEPLOY,
+                new HashMap<>() {
+                    {
+                        put("deploy_hash", deployHash);
+                    }
+                }));
+
+        return (result.isEmpty()) ? null
+                : MethodEnums.INFO_GET_DEPLOY.getValue(result.get());
+
+    }
+
+    public String getEraInfoBySwitchBlock() throws Throwable {
+
+        final Optional<String> result = httpMethods.rpcCallMethod(new Method(CHAIN_GET_ERA_INFO_BY_SWITCH_BLOCK,
+                new HashMap<>()));
+
+        return (result.isEmpty()) ? null
+                : MethodEnums.CHAIN_GET_ERA_INFO_BY_SWITCH_BLOCK.getValue(result.get());
+
+    }
+
+    public String getRpcSchema() throws Throwable {
+
+        final Optional<String> result = httpMethods.rpcCallMethod(new Method(RPC_DISCOVER,
+                new HashMap<>()));
+
+        return (result.isEmpty()) ? null
+                : MethodEnums.RPC_DISCOVER.getValue(result.get());
+
+    }
 }

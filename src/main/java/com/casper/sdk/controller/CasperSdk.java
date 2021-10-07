@@ -53,4 +53,24 @@ public class CasperSdk {
         return queryService.getNodePeers();
     }
 
+    public String getBlock() throws Throwable {
+        return queryService.getBlock();
+    }
+
+    public String getBlockTransfers() throws Throwable {
+        return queryService.getBlockTransfers();
+    }
+
+    public String getDeployInfo(final String deployHash) throws Throwable {
+        return queryService.getDeployInfo(deployHash);
+    }
+
+    public String getEraInfoBySwitchBlock() throws Throwable {
+        return queryService.getEraInfoBySwitchBlock();
+    }
+
+    public String getRpcSchema() throws Throwable {
+        return queryService.getRpcSchema();
+    }
+
 }
